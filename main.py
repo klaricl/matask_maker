@@ -21,6 +21,6 @@ def read_item(item_id: int, q: str = None):
 def adding_numbers(a: int, b: int):
     return {"a": a, "b": b, "a + b": a + b}
     
-@app.put("items/{item_id}")
+@app.put("/items/{item_id}")
 def update_item(item_id: int, item: Item):
     return {"item_name": item.name, "item_id": item_id}
