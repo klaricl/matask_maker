@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
@@ -7,6 +8,12 @@ class Item(BaseModel):
     name: str
     price: float
     is_offer: bool = None
+
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/templates")
+def webpage():
+    return templates.TemplateResponse("main.html")
 
 @app.get("/")
 def read_root():
