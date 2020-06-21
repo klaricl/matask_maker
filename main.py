@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 
@@ -11,9 +11,11 @@ class Item(BaseModel):
 
 templates = Jinja2Templates(directory="templates")
 
-@app.get("/templates")
-def webpage():
-    return templates.TemplateResponse("main.html")
+@app.get("/home")
+def home(request: Request):
+    return templates.TemplateResponse("main.html", {
+        "request": request,
+    })
 
 @app.get("/")
 def read_root():
