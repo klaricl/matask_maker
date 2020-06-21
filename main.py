@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Request, Depends
-from pydantic import BaseModel
+
 from fastapi.templating import Jinja2Templates
 
-from sqlalchemy.orm import Session
 import models
 from models import Item
-from .database import SessionLocal, engine
+from database import SessionLocal, engine
+from sqlalchemy.orm import Session
+from pydantic import BaseModel
 
 models.Base.metadata.create_all(bind=engine)
 templates = Jinja2Templates(directory="templates")
