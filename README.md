@@ -9,3 +9,7 @@ python3-devel
 
 ## good to have
 jq
+
+## branches
+master
+dev
