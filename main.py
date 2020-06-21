@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 
 from sqlalchemy.orm import Session
-from . import models
+import models
 from models import Item
 from .database import SessionLocal, engine
 
