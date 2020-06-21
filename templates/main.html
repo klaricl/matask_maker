@@ -37,4 +37,20 @@
     </tr>
   </tbody>
 </table>
+
+<h1>
+    ITEMS
+</h1>
+
+
+<table>
+
+
+{% for item in items %}
+    <tr>
+        <td>{{ item.name }}</td>
+    </tr>
+{% endfor %}
+</table>
+
 {% endblock %}

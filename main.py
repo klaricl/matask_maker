@@ -25,9 +25,14 @@ def get_db():
         db.close()
 
 @app.get("/home")
-def home(request: Request):
+def home(request: Request, db: Session = Depends(get_db)):
+    items = db.query(Item).all()
+    
+    
+    
     return templates.TemplateResponse("main.html", {
         "request": request,
+        "items": items
     })
 
 @app.get("/")
