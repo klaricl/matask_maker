@@ -1,15 +1,27 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 
+from sqlalchemy.orm import Session
+from . import models
+from models import Item
+from .database import SessionLocal, engine
+
+models.Base.metadata.create_all(bind=engine)
+templates = Jinja2Templates(directory="templates")
 app = FastAPI()
 
-class Item(BaseModel):
+class ItemRequest(BaseModel):
     name: str
     price: float
     is_offer: bool = None
 
-templates = Jinja2Templates(directory="templates")
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
 
 @app.get("/home")
 def home(request: Request):
@@ -31,5 +43,12 @@ def adding_numbers(a: int, b: int):
     return {"a": a, "b": b, "a + b": a + b}
     
 @app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id, "price": item.price}
+def update_item(item_id: int, item_request: ItemRequest, db: Session = Depends(get_db)):
+    item = Item()
+    item.name = item_request.name
+    
+    db.add(item)
+    db.commit()
+    
+    return {"item_name": item_request.name, "item_id": item_request, "price": item_request.price}
+    
