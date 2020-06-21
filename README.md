@@ -22,3 +22,18 @@ ssh-add ~/.ssh/id_rsa
 ```
 
 after that the ~/.ssh/id_rsa.pub content has to be pasted to github SSH settings
+
+
+### CURL command
+`curl -X PUT "http://3.125.113.0:8000/items/78" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"name\":\"toaster\",\"is_offer\":true}"`
+
+### Background task
+should be used with asyncio
+example:
+```asyncio def create_item(...background_tasks: BackgroundTasks...):
+    pass
+```
+
+***asyncio has to be installed with pip if you use python 3.6
+Try to install python 3.7 as you install python3
+***
